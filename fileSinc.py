@@ -46,7 +46,7 @@ def calculate_md5(file_path):
 
 	
 
-def check_file_sync(source_file, replica_file,sync_time):
+def check_file_sync():
 	
 	last_hash = None
 
@@ -71,4 +71,4 @@ if __name__ == "__main__":
 	sync_time = int(sys.argv[3])
 	log_file = sys.argv[4]
  
-	check_file_sync(source_file, replica_file,sync_time)
+	check_file_sync()
