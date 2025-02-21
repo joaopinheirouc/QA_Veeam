@@ -1,1 +1,1 @@
-Run script with : python fileSinc.py <source_file_path> <replica_file_path> time_sync <log_file_path>
+Run script with : python folderSinc.py <source_folder_path> <replica_folder_path> time_sync <log_file_path>
