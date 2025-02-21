@@ -43,26 +43,26 @@ def check_folder_sync():
 		replica_files = {f: os.path.join(replica_folder, f) for f in os.listdir(replica_folder)}#get all replica files
 
 
-		for files,source_path  in source_files.items(): 
-			replica_path = os.path.join(replica_folder,files)
+		for files,source_path  in source_files.items():#iterate over source folders and their files
+			replica_path = os.path.join(replica_folder,files)#create a replica path for each file
 
 			if os.path.isdir(source_path):
-				check_folder_sync(source_path,replica_path)#enter a directory
+				check_folder_sync(source_path,replica_path)#iterate over source directories
 			else:#if its file 
 				source_hash = calculate_md5(source_path)
 				replica_hash = calculate_md5(replica_path)
 				
 				if not os.path.exists(replica_path):#if there is no replica file
 					shutil.copy2(source_path, replica_path)
-					log_message(f"New file copied: {source_path} -> {replica_path}")
+					log_message(f"New replica file copied: {source_path} -> {replica_path}")
 				elif source_hash != replica_hash:#update the replica file
 					shutil.copy2(source_path, replica_path)
 					log_message(f"Replica file updated: {source_path} -> {replica_path}")
 
-		for files, replica_path in replica_files.items():
-			source_path = os.path.join(source_folder, files)
+		for files, replica_path in replica_files.items():#iterate over replica files and folders
+			source_path = os.path.join(source_folder, files)#use source path for checking replicas presence
 
-			if not os.path.exists(source_path):
+			if not os.path.exists(source_path):#if there is no source path eliminate
 				if os.path.isdir(replica_path):
 					shutil.rmtree(replica_path)
 					log_message(f"Deleted folder: {replica_path}")
