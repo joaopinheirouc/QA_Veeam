@@ -1,6 +1,5 @@
 import hashlib
 import sys
-import os
 import time
 
 
@@ -10,8 +9,8 @@ def log_message(message):
 	log_entry = f"{timestamp} {message}"
 
 	try:
-		with open(log_file, "a") as log:  
-			log.write(log_entry + "\n")
+		log = open(log_file, 'a')  
+		log.write(log_entry + "\n")
 	except FileNotFoundError:
 		log_message(f"Error: File '{log_file}' not found.")
 		return None
@@ -20,16 +19,16 @@ def log_message(message):
 
 def read_file(file_path):
 	try:
-		with open(file_path, 'r') as f:
-				return f.read()
+		file = open(file_path, 'r')
+		return file.read()
 	except FileNotFoundError:
 		log_message(f"Error: File '{file_path}' not found.")
 		return None
 
 def write_file(file_path,text):
 	try:
-		with open(file_path, 'w') as f:
-			f.write(text)
+		file = open(file_path, 'w')
+		return file.write(text)
 	except FileNotFoundError:
 		log_message(f"Error: File '{file_path}' not found.")
 		return None
@@ -37,14 +36,12 @@ def write_file(file_path,text):
 def calculate_md5(file_path):
 	hash_num = hashlib.md5()
 	try:
-		with open(file_path,'rb') as fl:
-				while text := fl.read():
-					hash_num.update(text)
+		file = open(file_path, 'rb')
+		while text := file.read():
+			hash_num.update(text)
 	except FileNotFoundError:
 		log_message(f"Error: File '{file_path}' not found.")
-
 		return None
-
 	return hash_num.hexdigest()
 
 	
